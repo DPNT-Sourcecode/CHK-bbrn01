@@ -22,7 +22,7 @@ class SkuData:
                     # example: buy any 3 of (S,T,X,Y,Z) for 45
                     parts = offer.split(" ")
                     req_count = int(parts[2])
-                    item_ids = parts[4][1:-1].split(",")
+                    item_ids = set(parts[4][1:-1].split(","))
                     offer_price = int(parts[6])
                     self.multi_offers.add((item_ids, req_count, offer_price,))
 
@@ -55,4 +55,5 @@ class SkuData:
 
 sku_data = SkuData(PRICE_TABLE)
 breakpoint()
+
 
