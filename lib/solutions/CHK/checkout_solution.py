@@ -61,11 +61,12 @@ def _calculate_item_basket_price(id: str, count: int) -> int:
     offer_total = 0
     remaining_count = count
 
-    for req_count, offer_price in sku_data.offers:
+    for req_count, offer_price in sku_data.offers[id]:
         while remaining_count >= req_count:
             remaining_count -= req_count
             offer_total += offer_price
 
     return offer_total + unit_price * remaining_count
+
 
 

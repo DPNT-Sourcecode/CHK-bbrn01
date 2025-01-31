@@ -68,13 +68,14 @@ class SkuData:
                     req_count = int(for_offer[0][:-1])
                     offer_price = int(for_offer[1])
                     self.offers[item_id].append((req_count, offer_price,))
-        
+
             # order the offers from highest value to lowest
             # self.offers.sort(): list[tuple[int, int]] = sorted(
             # sku_data.offers[id], key=lambda x: x[0], reverse=True
     # )
 
 sku_data = SkuData(PRICE_TABLE)
+
 
 
 
