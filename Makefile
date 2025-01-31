@@ -1,5 +1,5 @@
-run-server:
+run:
 	python lib/send_command_to_server.py
 
-run-tests:
+tests:
 	PYTHONPATH=lib python -m pytest -q test/solution_tests/
