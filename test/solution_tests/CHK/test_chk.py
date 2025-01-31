@@ -80,4 +80,7 @@ class TestSum:
         assert checkout_solution.checkout("FFFFFF") == 40
 
     def test_checkout_large_order(self):
-        pass
+        # Z  + T  + 4Q + 
+        # 50 + 20 + 80 + 30 + 80 + 45 + 20 + 120
+
+        assert checkout_solution.checkout("ZTQQQQHHHHHHHHHHHHHHHCFFUUUU") == 445
