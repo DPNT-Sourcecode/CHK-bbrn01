@@ -68,7 +68,8 @@ class SkuData:
                     req_count = int(for_offer[0][:-1])
                     offer_price = int(for_offer[1])
                     self.offers[item_id] = (req_count, offer_price)
-
-        # breakpoint()
+        
 
 sku_data = SkuData(PRICE_TABLE)
+breakpoint()
+
