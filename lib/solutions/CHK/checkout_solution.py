@@ -41,11 +41,13 @@ def _build_basket(skus: str) -> dict[str, int]:
 
 
 def _remove_freebies_from_basket(basket: dict[str, int]) -> dict[str, int]:
-    for id, count in basket.items():
+    for id in basket.keys():
         if id in FREEBIES and FREEBIES[id][1] in basket:
             required_count, free_id = FREEBIES[id]
             x = int(basket[id] / required_count)
             basket[free_id] = max(basket[free_id] - x, 0)
+
+    return basket
 
 
 def _calculate_item_basket_price(id: str, count: int) -> int:
