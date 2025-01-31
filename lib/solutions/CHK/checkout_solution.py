@@ -60,14 +60,18 @@ def _apply_multi_offers(
     # assumption: items in multi-offers can not be part of any other offer type
     valid_items = multi_offer[0]
     req_count = multi_offer[1]
-    price = multi_offer[2]
+    offer_price = multi_offer[2]
 
     prices = []
     for item_id in valid_items:
-        for j in range(0, basket[item_id]):
+        for _ in range(0, basket[item_id]):
             prices.append(sku_data.item_prices[item_id])
-    prices = sum([])
+    prices.sort()
 
+    # We remove the highest priced items first, in batches of 'req_count', each batch charged at
+    # the offer_price. Remaining items must be charged at their base rate
+    offers = int(len(prices) / req_count)
+    remainders = len(prices) / 
     return basket, ?
 
 
@@ -88,6 +92,7 @@ def _calculate_item_basket_price(id: str, count: int) -> int:
             offer_total += offer_price
 
     return offer_total + unit_price * remaining_count
+
 
 
 
