@@ -28,15 +28,16 @@ def checkout(skus: str) -> int:
     # calculate the basket value
     total = 0
     for id, count in basket.items():
-        # for items without offers, we can simply add the 
+        # for items without offers, we can simply add the price muliplied by count
         unit_price = ITEMS[id]
         if id not in OFFERS:
             total += unit_price * count
             continue
         
-        # for items with offers, factor in the reduced price 
+        # for items with offers, factor in the reduced price based on the number of offers
         offer_req, offer_price = OFFERS[id]
         total += int(count / offer_req) * offer_price
         total += count % offer_req * unit_price
 
     return total
+
