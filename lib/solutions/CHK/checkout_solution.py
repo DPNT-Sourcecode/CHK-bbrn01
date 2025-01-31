@@ -1,6 +1,6 @@
 from collections import defaultdict
 
-from .sku_data import FREEBIES, ITEMS, OFFERS
+from .sku_data import sku_data
 
 
 class InvalidBasket(Exception):
@@ -33,7 +33,7 @@ def _build_basket(skus: str) -> dict[str, int]:
 
     basket = defaultdict(int)
     for id in skus:
-        if id not in ITEMS:
+        if id not in sku_data.items:
             raise InvalidBasket()
         basket[id] += 1
 
@@ -42,8 +42,8 @@ def _build_basket(skus: str) -> dict[str, int]:
 
 def _remove_freebies_from_basket(basket: dict[str, int]) -> dict[str, int]:
     for id in basket.keys():
-        if id in FREEBIES and FREEBIES[id][1] in basket:
-            required_count, free_id = FREEBIES[id]
+        if id in sku_data.freebies and sku_data.freebies[id][1] in basket:
+            required_count, free_id = sku_data.freebies[id]
             x = int(basket[id] / required_count)
             basket[free_id] = max(basket[free_id] - x, 0)
 
@@ -52,7 +52,7 @@ def _remove_freebies_from_basket(basket: dict[str, int]) -> dict[str, int]:
 
 def _calculate_item_basket_price(id: str, count: int) -> int:
     # for items without offers, we can simply add the price muliplied by count
-    unit_price = ITEMS[id]
+    unit_price = sku_data.items[id]
     if id not in OFFERS:
         return unit_price * count
 
@@ -70,3 +70,4 @@ def _calculate_item_basket_price(id: str, count: int) -> int:
             offer_total += offer_price
 
     return offer_total + unit_price * remaining_count
+
