@@ -27,6 +27,7 @@ def checkout(skus: str) -> int:
 
         # for items with offers, factor in the reduced price based on the number of offers
         offer_req, offer_price = OFFERS[id]
+        
         total += int(count / offer_req) * offer_price
         total += count % offer_req * unit_price
 
@@ -44,6 +45,7 @@ def _build_basket(skus: str) -> dict[str, int]:
         basket[id] += 1
 
     return basket
+
 
 
 
