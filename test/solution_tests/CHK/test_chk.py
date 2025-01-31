@@ -4,20 +4,23 @@ from solutions.CHK import checkout_solution
 from solutions.CHK.sku_data import SkuData, sku_data
 
 test_data = """+------+-------+------------------------+
-| Item | Price | Special offers         |
-+------+-------+------------------------+
-| A    | 50    | 3A for 130, 5A for 200 |
-| B    | 30    | 2B for 45              |
-| C    | 20    |                        |
-| D    | 15    |                        |
-| E    | 40    | 2E get one B free      |
-| F    | 10    | 2F get one F free      |
-| H    | 10    | 5H for 45, 10H for 80  |
-| Q    | 30    | 3Q for 80              |
-| T    | 20    |                        |
-| U    | 40    | 3U get one U free      |
-| Z    | 50    |                        |
-+------+-------+------------------------+"""
+| Item | Price | Special offers                  |
++------+-------+---------------------------------+
+| A    | 50    | 3A for 130, 5A for 200          |
+| B    | 30    | 2B for 45                       |
+| C    | 20    |                                 |
+| D    | 15    |                                 |
+| E    | 40    | 2E get one B free               |
+| F    | 10    | 2F get one F free               |
+| H    | 10    | 5H for 45, 10H for 80           |
+| Q    | 30    | 3Q for 80                       |
+| U    | 40    | 3U get one U free               |
+| S    | 20    | buy any 3 of (S,T,X,Y,Z) for 45 |
+| T    | 20    | buy any 3 of (S,T,X,Y,Z) for 45 |
+| X    | 17    | buy any 3 of (S,T,X,Y,Z) for 45 |
+| Y    | 20    | buy any 3 of (S,T,X,Y,Z) for 45 |
+| Z    | 21    | buy any 3 of (S,T,X,Y,Z) for 45 |
++------+-------+---------------------------------+"""
 test_sku_data = SkuData(test_data)
 
 
@@ -85,6 +88,8 @@ class TestSum:
     @patch("solutions.CHK.checkout_solution.sku_data", test_sku_data)
     def test_checkout_complex_order(self):
         # Z  + T  + 4Q + Q  + 10H + 5H + C  + 2F + 4U (1 free)
-        # 50 + 20 + 80 + 30 + 80  + 45 + 20 + 20 + 120
-        assert checkout_solution.checkout("ZTQQQQHHHHHHHHHHHHHHHCFFUUUU") == 465
+        # 21 + 20 + 80 + 30 + 80  + 45 + 20 + 20 + 120
+        assert checkout_solution.checkout("ZTQQQQHHHHHHHHHHHHHHHCFFUUUU") == 444
+
+    
 
