@@ -1,6 +1,5 @@
 from collections import defaultdict
 
-
 from .sku_data import sku_data
 
 
@@ -17,11 +16,19 @@ def checkout(skus: str) -> int:
     except InvalidBasket:
         return -1
 
-    # in a first-pass, remove items from the basket which are part of a freebie offer
+    # a pre-pass to remove items from the basket which are part of a freebie offer
     basket = _remove_freebies_from_basket(basket)
 
-    # calculate the basket value
     total = 0
+    # a pre-pass to remove items which are part of a multi-deal offer
+    for offer in sku_data.multi_offers:
+        # assumption: 
+        valid_items = offer[0]
+        req_count = offer[1]
+        price = offer[2]
+
+
+    # calculate the basket value
     for id, count in basket.items():
         total += _calculate_item_basket_price(id, count)
     return total
@@ -67,3 +74,4 @@ def _calculate_item_basket_price(id: str, count: int) -> int:
             offer_total += offer_price
 
     return offer_total + unit_price * remaining_count
+
