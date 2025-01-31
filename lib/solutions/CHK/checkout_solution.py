@@ -1,19 +1,8 @@
 from collections import defaultdict
 
-ITEMS = {
-    "A": 50,
-    "B": 30,
-    "C": 20,
-    "D": 15,
-    "E": 40,
-}
-OFFERS = {
-    "A": [(3, 130), (5, 200)],
-    "B": (2, 45),
-}
-FREEBIES = {
-    "E": [2],
-}
+from sku_data import FREEBIES, ITEMS, OFFERS
+
+
 
 
 # noinspection PyUnusedLocal
@@ -23,11 +12,8 @@ def checkout(skus: str) -> int:
         return -1
 
     # build the basket for the given checkout
-    basket = defaultdict(int)
-    for id in skus:
-        if id not in ITEMS:
-            return -1
-        basket[id] += 1
+    try:
+        basket = 
 
     # calculate the basket value
     total = 0
@@ -37,12 +23,23 @@ def checkout(skus: str) -> int:
         if id not in OFFERS:
             total += unit_price * count
             continue
-        
+
         # for items with offers, factor in the reduced price based on the number of offers
         offer_req, offer_price = OFFERS[id]
         total += int(count / offer_req) * offer_price
         total += count % offer_req * unit_price
 
     return total
+
+
+def _build_basket(skus: str) -> dict[str, int]:
+    basket = defaultdict(int)
+    for id in skus:
+        if id not in ITEMS:
+            return -1
+        basket[id] += 1
+    
+    return 
+
 
 
