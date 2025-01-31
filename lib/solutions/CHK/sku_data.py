@@ -64,14 +64,11 @@ class SkuData:
             for offer in offers.split(", "):
                 if " for " in offer:
                     for_offer = offer.split(" for ")
-                    
-                    self.offers[for_offer[0][-1]] = (int(for_offer[[0][:-1]]), int(for_offer[1]))
+                    item_id = for_offer[0][-1]
+                    req_count = int(for_offer[0][:-1])
+                    offer_price = int(for_offer[1])
+                    self.offers[item_id] = (req_count, offer_price)
 
-            breakpoint()
+        # breakpoint()
 
 sku_data = SkuData(PRICE_TABLE)
-
-
-
-
-
