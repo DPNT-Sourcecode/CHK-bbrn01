@@ -23,6 +23,7 @@ def checkout(skus: str) -> int:
             x = int(basket[free_id] / required_count)
             basket[free_id] = max(basket[free_id] - x, 0)
 
+    print(basket)
     # calculate the basket value
     total = 0
     for id, count in basket.items():
@@ -54,17 +55,14 @@ def _calculate_item_basket_price(id: str, count: int) -> int:
     # assumption is made that offers with more items are always better value
     offer_total = 0
     remaining_count = count
-    ordered_offers: list[tuple[int, int]] = sorted(OFFERS[id], key=lambda x: x[0], reverse=True)
+    ordered_offers: list[tuple[int, int]] = sorted(
+        OFFERS[id], key=lambda x: x[0], reverse=True
+    )
     print(ordered_offers)
     for req_count, offer_price in ordered_offers:
         while remaining_count >= req_count:
             remaining_count -= req_count
             offer_total += offer_price
 
-
     return offer_total + unit_price * remaining_count
-    # offer_req, offer_price = OFFERS[id][0]  # TODO: assume best offer
 
-    # offers_value = int(count / offer_req) * offer_price
-    # solos_value = count % offer_req * unit_price
-    return offers_value + solos_value

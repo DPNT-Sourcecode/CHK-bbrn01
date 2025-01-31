@@ -46,5 +46,10 @@ class TestSum:
     def test_checkout_accounts_for_free_item_when_available(self):
         assert checkout_solution.checkout("BEE") == 80
 
+    def test_checkout_accounts_for_multiple_free_items_when_available(self):
+        assert checkout_solution.checkout("BBEEEE") == 160
+
     def test_checkout_ignores_free_item_when_not_in_basket(self):
         assert checkout_solution.checkout("AEE") == 130
+        assert checkout_solution.checkout("ABEEEE") == 210
+
