@@ -3,17 +3,18 @@ from collections import defaultdict
 from sku_data import FREEBIES, ITEMS, OFFERS
 
 
+class InvalidBasket(Exception):
+    def __init__(self):
+        self.msg = "Basket contained invalid item."
 
 
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus: str) -> int:
-    if not isinstance(skus, str):
-        return -1
-
-    # build the basket for the given checkout
     try:
-        basket = 
+        basket = _build_basket(skus)
+    except InvalidBasket:
+        return -1
 
     # calculate the basket value
     total = 0
@@ -33,13 +34,16 @@ def checkout(skus: str) -> int:
 
 
 def _build_basket(skus: str) -> dict[str, int]:
+    if not isinstance(skus, str):
+        return -1
+
     basket = defaultdict(int)
     for id in skus:
         if id not in ITEMS:
             return -1
         basket[id] += 1
-    
-    return 
+
+    return
 
 
 

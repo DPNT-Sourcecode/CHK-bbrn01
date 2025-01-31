@@ -12,6 +12,10 @@ from solutions.CHK import checkout_solution
 
 
 class TestSum:
+    def test_checkout_illegal_input(self):
+        assert checkout_solution.checkout("A1") == -1
+        assert checkout_solution.checkout("ABF") == -1
+
     def test_checkout_empty(self):
         assert checkout_solution.checkout("") == 0
 
@@ -32,7 +36,6 @@ class TestSum:
     def test_checkout_multiple_items_repeat_offer(self):
         assert checkout_solution.checkout("BBBBD") == 105
 
-    def test_checkout_illegal_input(self):
-        assert checkout_solution.checkout("A1") == -1
-        assert checkout_solution.checkout("ABF") == -1
+
+    def test_checkout_prioritises_best_offer()
 
