@@ -1,11 +1,4 @@
-# +------+-------+----------------+
-# | Item | Price | Special offers |
-# +------+-------+----------------+
-# | A    | 50    | 3A for 130     |
-# | B    | 30    | 2B for 45      |
-# | C    | 20    |                |
-# | D    | 15    |                |
-# +------+-------+----------------+
+from collections import defaultdict
 
 ITEMS = {
     "A": 50,
@@ -13,7 +6,10 @@ ITEMS = {
     "C": 20,
     "D": 15,
 }
-
+OFFERS = {
+    "A": (3, 130),
+    "B": (2, 45),
+}
 
 # noinspection PyUnusedLocal
 # skus = unicode string
@@ -21,11 +17,18 @@ def checkout(skus: str) -> int:
     if not isinstance(skus, str):
         return -1
     
+    # build the basket for the given checkout
+    basket = defaultdict(int)
     for id in skus:
         if id not in ITEMS:
             return -1
+        basket[id] += 1
 
-        
+    # calculate the basket value
+    total = 0
+    for id, count in basket.items():
+        total += ITEMS[id] * 
+
 
 
 
