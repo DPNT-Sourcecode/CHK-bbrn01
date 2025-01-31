@@ -1,38 +1,43 @@
+from unittest.mock import patch
+from solutions.CHK.sku_data import SkuData
 from solutions.CHK import checkout_solution
 
-test_sku_data = SkuData()
-# +------+-------+------------------------+
-# | Item | Price | Special offers         |
-# +------+-------+------------------------+
-# | A    | 50    | 3A for 130, 5A for 200 |
-# | B    | 30    | 2B for 45              |
-# | C    | 20    |                        |
-# | D    | 15    |                        |
-# | E    | 40    | 2E get one B free      |
-# | F    | 10    | 2F get one F free      |
-# | G    | 20    |                        |
-# | H    | 10    | 5H for 45, 10H for 80  |
-# | I    | 35    |                        |
-# | J    | 60    |                        |
-# | K    | 80    | 2K for 150             |
-# | L    | 90    |                        |
-# | M    | 15    |                        |
-# | N    | 40    | 3N get one M free      |
-# | O    | 10    |                        |
-# | P    | 50    | 5P for 200             |
-# | Q    | 30    | 3Q for 80              |
-# | R    | 50    | 3R get one Q free      |
-# | S    | 30    |                        |
-# | T    | 20    |                        |
-# | U    | 40    | 3U get one U free      |
-# | V    | 50    | 2V for 90, 3V for 130  |
-# | W    | 20    |                        |
-# | X    | 90    |                        |
-# | Y    | 10    |                        |
-# | Z    | 50    |                        |
-# +------+-------+------------------------+
+
+test_data = """+------+-------+------------------------+
+| Item | Price | Special offers         |
++------+-------+------------------------+
+| A    | 50    | 3A for 130, 5A for 200 |
+| B    | 30    | 2B for 45              |
+| C    | 20    |                        |
+| D    | 15    |                        |
+| E    | 40    | 2E get one B free      |
+| F    | 10    | 2F get one F free      |
+| G    | 20    |                        |
+| H    | 10    | 5H for 45, 10H for 80  |
+| I    | 35    |                        |
+| J    | 60    |                        |
+| K    | 80    | 2K for 150             |
+| L    | 90    |                        |
+| M    | 15    |                        |
+| N    | 40    | 3N get one M free      |
+| O    | 10    |                        |
+| P    | 50    | 5P for 200             |
+| Q    | 30    | 3Q for 80              |
+| R    | 50    | 3R get one Q free      |
+| S    | 30    |                        |
+| T    | 20    |                        |
+| U    | 40    | 3U get one U free      |
+| V    | 50    | 2V for 90, 3V for 130  |
+| W    | 20    |                        |
+| X    | 90    |                        |
+| Y    | 10    |                        |
+| Z    | 50    |                        |
++------+-------+------------------------+"""
+test_sku_data = SkuData(test_data)
+
 
 class TestSum:
+    @patch("")
     def test_checkout_illegal_input(self):
         assert checkout_solution.checkout("A1") == -1
         assert checkout_solution.checkout("AB!") == -1
@@ -84,3 +89,4 @@ class TestSum:
         # Z  + T  + 4Q + Q  + 10H + 5H + C  + 2F + 4U (1 free)
         # 50 + 20 + 80 + 30 + 80  + 45 + 20 + 20 + 120
         assert checkout_solution.checkout("ZTQQQQHHHHHHHHHHHHHHHCFFUUUU") == 465
+
