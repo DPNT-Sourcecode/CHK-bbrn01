@@ -1,6 +1,5 @@
 from collections import defaultdict
 
-
 PRICE_TABLE = """+------+-------+------------------------+
 | Item | Price | Special offers         |
 +------+-------+------------------------+
@@ -36,20 +35,20 @@ PRICE_TABLE = """+------+-------+------------------------+
 class SkuData:
     def __init__(self, price_table: str):
         self.item_prices: dict[str, int] = {
-        #     "A": 50,
-        #     "B": 30,
-        #     "C": 20,
-        #     "D": 15,
-        #     "E": 40,
-        #     "F": 10,
+            #     "A": 50,
+            #     "B": 30,
+            #     "C": 20,
+            #     "D": 15,
+            #     "E": 40,
+            #     "F": 10,
         }
         self.offers: dict[str, list[tuple]] = defaultdict(list)
-            # "A": [(3, 130), (5, 200)],
-            # "B": [(2, 45)],
+        # "A": [(3, 130), (5, 200)],
+        # "B": [(2, 45)],
         # }
         self.freebies: dict[str, tuple] = defaultdict(list)
-            # "E": (2, "B"),
-            # "F": (3, "F"),
+        # "E": (2, "B"),
+        # "F": (3, "F"),
         # }
 
         for line in price_table.splitlines()[3:-1]:
@@ -59,20 +58,25 @@ class SkuData:
             offers = l[3].strip()
             self.item_prices[item] = int(price)
 
-# 3Q for 80              |
-# 3R get one Q free      |
+            # 3R get one Q free      |
             for offer in offers.split(", "):
                 if " for " in offer:
                     for_offer = offer.split(" for ")
                     item_id = for_offer[0][-1]
                     req_count = int(for_offer[0][:-1])
                     offer_price = int(for_offer[1])
-                    self.offers[item_id].append((req_count, offer_price,))
+                    self.offers[item_id].append(
+                        (
+                            req_count,
+                            offer_price,
+                        )
+                    )
 
-            # order the offers from highest value to lowest
-            # self.offers.sort(): list[tuple[int, int]] = sorted(
-            # sku_data.offers[id], key=lambda x: x[0], reverse=True
-    # )
+                # order the offers from highest value to lowest
+                self.offers[item_id] = sorted(
+                    self.offers[item_id], key=lambda x: x[0], reverse=True
+                )
+
 
 sku_data = SkuData(PRICE_TABLE)
 
