@@ -1,6 +1,6 @@
 from collections import defaultdict
 
-from sku_data import FREEBIES, ITEMS, OFFERS
+from .sku_data import FREEBIES, ITEMS, OFFERS
 
 
 class InvalidBasket(Exception):
@@ -43,7 +43,7 @@ def _build_basket(skus: str) -> dict[str, int]:
             return -1
         basket[id] += 1
 
-    return
+    return basket
 
 
 
