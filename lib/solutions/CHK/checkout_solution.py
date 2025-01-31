@@ -33,7 +33,7 @@ def _build_basket(skus: str) -> dict[str, int]:
 
     basket = defaultdict(int)
     for id in skus:
-        if id not in sku_data.items:
+        if id not in sku_data.item_prices:
             raise InvalidBasket()
         basket[id] += 1
 
@@ -52,8 +52,8 @@ def _remove_freebies_from_basket(basket: dict[str, int]) -> dict[str, int]:
 
 def _calculate_item_basket_price(id: str, count: int) -> int:
     # for items without offers, we can simply add the price muliplied by count
-    unit_price = sku_data.items[id]
-    if id not in OFFERS:
+    unit_price = sku_data.item_prices[id]
+    if id not in sku_data.offers:
         return unit_price * count
 
     # for items with offers, factor in the reduced price based on the best combination of offers
@@ -61,7 +61,7 @@ def _calculate_item_basket_price(id: str, count: int) -> int:
     offer_total = 0
     remaining_count = count
     ordered_offers: list[tuple[int, int]] = sorted(
-        OFFERS[id], key=lambda x: x[0], reverse=True
+        sku_data.offers[id], key=lambda x: x[0], reverse=True
     )
 
     for req_count, offer_price in ordered_offers:
