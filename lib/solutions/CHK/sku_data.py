@@ -1,6 +1,6 @@
 from collections import defaultdict
 
-from lib.solutions.CHK.constants import PRICE_TABLE
+from solutions.CHK.constants import PRICE_TABLE
 
 
 class SkuData:
@@ -45,3 +45,4 @@ class SkuData:
 
 
 sku_data = SkuData(PRICE_TABLE)
+
