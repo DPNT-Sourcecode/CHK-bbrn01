@@ -20,6 +20,10 @@ class SkuData:
             for offer in offers.split(", "):
                 if "buy any " in offer:
                     # buy any 3 of (S,T,X,Y,Z) for 45
+                    parts = offer.split(" ")
+                    req_count = int(parts[2])
+                    item_ids = parts[4][1:-1].split(",")
+                    
                     pass
                     # self.multi_offers.append()
                 elif " for " in offer:
@@ -50,3 +54,4 @@ class SkuData:
 
 
 sku_data = SkuData(PRICE_TABLE)
+
