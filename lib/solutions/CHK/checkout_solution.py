@@ -52,15 +52,19 @@ def _calculate_item_basket_price(id: str, count: int) -> int:
 
     # for items with offers, factor in the reduced price based on the best combination of offers
     # assumption is made that offers with more items are always better value
-
+    total = 0
     ordered_offers: list[tuple[int, int]] = OFFERS[id].sort(key=lambda x: x[0], reverse=True)
-    for 
+    for req_count, offer_price in ordered_offers:
+        while count >= req_count:
+            count -= req_count
+            total += 
 
     offer_req, offer_price = OFFERS[id][0]  # TODO: assume best offer
 
     offers_value = int(count / offer_req) * offer_price
     solos_value = count % offer_req * unit_price
     return offers_value + solos_value
+
 
 
 

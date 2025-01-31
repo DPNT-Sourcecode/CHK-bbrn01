@@ -39,8 +39,13 @@ class TestSum:
     def test_checkout_prioritises_best_offer(self):
         assert checkout_solution.checkout("AAAAAA") == 250
 
+    def test_checkout_different_offers_for_same_item(self):
+        # 200(5) + 130(3) + 50(1)
+        assert checkout_solution.checkout("AAAAAAAAA") == 380
+
     def test_checkout_accounts_for_free_item_when_available(self):
         assert checkout_solution.checkout("BEE") == 80
 
     def test_checkout_ignores_free_item_when_not_in_basket(self):
         assert checkout_solution.checkout("AEE") == 130
+
