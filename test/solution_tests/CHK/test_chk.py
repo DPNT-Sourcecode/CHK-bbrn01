@@ -15,7 +15,7 @@ from solutions.CHK import checkout_solution
 class TestSum:
     def test_checkout_illegal_input(self):
         assert checkout_solution.checkout("A1") == -1
-        assert checkout_solution.checkout("ABF") == -1
+        assert checkout_solution.checkout("ABZ") == -1
 
     def test_checkout_empty(self):
         assert checkout_solution.checkout("") == 0
@@ -58,4 +58,5 @@ class TestSum:
         assert checkout_solution.checkout("FF") == 20
         assert checkout_solution.checkout("FFF") == 20
         assert checkout_solution.checkout("FFFF") == 30
+
 
