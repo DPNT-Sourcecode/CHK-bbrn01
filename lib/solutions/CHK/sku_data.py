@@ -34,22 +34,9 @@ PRICE_TABLE = """+------+-------+------------------------+
 
 class SkuData:
     def __init__(self, price_table: str):
-        self.item_prices: dict[str, int] = {
-            #     "A": 50,
-            #     "B": 30,
-            #     "C": 20,
-            #     "D": 15,
-            #     "E": 40,
-            #     "F": 10,
-        }
+        self.item_prices: dict[str, int] = {}
         self.offers: dict[str, list[tuple]] = defaultdict(list)
-        # "A": [(3, 130), (5, 200)],
-        # "B": [(2, 45)],
-        # }
         self.freebies: dict[str, tuple] = defaultdict(list)
-        # "E": (2, "B"),
-        # "F": (3, "F"),
-        # }
 
         for line in price_table.splitlines()[3:-1]:
             l = line.split("|")
@@ -58,9 +45,9 @@ class SkuData:
             offers = l[3].strip()
             self.item_prices[item] = int(price)
 
-            # 3R get one Q free      |
             for offer in offers.split(", "):
                 if " for " in offer:
+                    self._parse_x_for_y_offers()
                     for_offer = offer.split(" for ")
                     item_id = for_offer[0][-1]
                     req_count = int(for_offer[0][:-1])
@@ -71,7 +58,11 @@ class SkuData:
                             offer_price,
                         )
                     )
+                elif " get one " in offer:
 
+            # 3R get one Q free      |
+
+            
                 # order the offers from highest value to lowest
                 self.offers[item_id] = sorted(
                     self.offers[item_id], key=lambda x: x[0], reverse=True
@@ -79,6 +70,7 @@ class SkuData:
 
 
 sku_data = SkuData(PRICE_TABLE)
+
 
 
 
