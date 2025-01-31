@@ -94,5 +94,3 @@ class TestSum:
     @patch("solutions.CHK.checkout_solution.sku_data", test_sku_data)
     def test_checkout_multi_selection_offer(self):
         assert checkout_solution.checkout("SXZ") == 45
-
-
