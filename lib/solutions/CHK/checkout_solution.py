@@ -19,8 +19,8 @@ def checkout(skus: str) -> int:
     # a pre-pass to remove items from the basket which are part of a freebie offer
     basket = _remove_freebies_from_basket(basket)
 
-    total = 0
     # a pre-pass to remove items which are part of a multi-deal offer
+    total = 0
     for offer in sku_data.multi_offers:
         basket, value = _apply_multi_offers(basket, offer)
         total += value
@@ -66,15 +66,15 @@ def _apply_multi_offers(
     for item_id in valid_items:
         for _ in range(0, basket[item_id]):
             prices.append(sku_data.item_prices[item_id])
+        # remove the items from the basket, as they are accounted for in the multi-deal
+        basket[item_id] = 0
     prices.sort()
 
-    # We prioritise the highest priced items to include in the offers. 
-    # The remaining (cheapest) items must be charged at their base rate.
+    # we prioritise the highest priced items to include in the offers.
+    # the remaining (cheapest) items must be charged at their base rate.
     offers = int(len(prices) / req_count)
     remainders = len(prices) % req_count
     total = offers * offer_price + remainders
-    
-    # update the basket to remove the items accounted for in the multi-deal
     return basket, total
 
 
@@ -95,3 +95,4 @@ def _calculate_item_basket_price(id: str, count: int) -> int:
             offer_total += offer_price
 
     return offer_total + unit_price * remaining_count
+
