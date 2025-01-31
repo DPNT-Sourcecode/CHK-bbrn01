@@ -59,19 +59,21 @@ class SkuData:
                     )
                 elif " get one " in offer:
                     get_one_offer = offer.split(" get one ")
-                    offer_id = get_one_offer[0][-1]
                     req_count = int(get_one_offer[0][:-1])
                     free_id = get_one_offer[1][0]
-                    self.freebies[offer_id] = (req_count, free_id)
-            # 3R get one Q free      |
+                    if item == free_id:
+                        req_count += 1
+                    self.freebies[item] = (req_count, free_id)
 
                 # order the offers from highest value to lowest
                 self.offers[item_id] = sorted(
                     self.offers[item_id], key=lambda x: x[0], reverse=True
                 )
+        breakpoint()
 
 
 sku_data = SkuData(PRICE_TABLE)
+
 
 
 
