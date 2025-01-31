@@ -23,8 +23,8 @@ def checkout(skus: str) -> int:
     # calculate the basket value
     total = 0
     for id, count in basket.items():
-        total += _calculate_item_basket_price(id, count)
         breakpoint()
+        total += _calculate_item_basket_price(id, count)
     return total
 
 
@@ -68,5 +68,6 @@ def _calculate_item_basket_price(id: str, count: int) -> int:
             offer_total += offer_price
 
     return offer_total + unit_price * remaining_count
+
 
 
