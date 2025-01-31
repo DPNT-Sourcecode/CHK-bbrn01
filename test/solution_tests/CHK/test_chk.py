@@ -37,8 +37,8 @@ test_sku_data = SkuData(test_data)
 
 
 class TestSum:
-    @patch("")
-    def test_checkout_illegal_input(self):
+    @patch(".sku_data.sku_data")
+    def test_checkout_illegal_input(self, sku_data_mock):
         assert checkout_solution.checkout("A1") == -1
         assert checkout_solution.checkout("AB!") == -1
 
@@ -89,4 +89,5 @@ class TestSum:
         # Z  + T  + 4Q + Q  + 10H + 5H + C  + 2F + 4U (1 free)
         # 50 + 20 + 80 + 30 + 80  + 45 + 20 + 20 + 120
         assert checkout_solution.checkout("ZTQQQQHHHHHHHHHHHHHHHCFFUUUU") == 465
+
 
