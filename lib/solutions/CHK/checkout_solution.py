@@ -58,9 +58,7 @@ def _apply_multi_offers(
     basket: dict[str, int], multi_offer: tuple[str, int, int]
 ) -> tuple[dict[str, int], int]:
     # assumption: items in multi-offers can not be part of any other offer type
-    valid_items = multi_offer[0]
-    req_count = multi_offer[1]
-    offer_price = multi_offer[2]
+    valid_items, req_count, offer_price = multi_offer
 
     prices = []
     for item_id in valid_items:
@@ -95,5 +93,6 @@ def _calculate_item_basket_price(id: str, count: int) -> int:
             offer_total += offer_price
 
     return offer_total + unit_price * remaining_count
+
 
 
