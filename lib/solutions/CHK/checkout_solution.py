@@ -27,10 +27,10 @@ def checkout(skus: str) -> int:
         req_count = offer[1]
         price = offer[2]
 
-        totals = []
-        for id in valid_items:
-            for j in range(0, basket[i])
-            totals.extend([])
+        prices = []
+        for item_id in valid_items:
+            for j in range(0, basket[item_id]):
+                prices.append(sku_data.item_prices[item_id])
         totals = sum([])
 
 
