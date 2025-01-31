@@ -1,7 +1,7 @@
 from unittest.mock import patch
 
 from solutions.CHK import checkout_solution
-from solutions.CHK.sku_data import SkuData
+from solutions.CHK.sku_data import SkuData, sku_data
 
 test_data = """+------+-------+------------------------+
 | Item | Price | Special offers         |
@@ -18,76 +18,72 @@ test_data = """+------+-------+------------------------+
 | U    | 40    | 3U get one U free      |
 | Z    | 50    |                        |
 +------+-------+------------------------+"""
-test_sku_data = SkuData(test_data)
+sku_data = SkuData(test_data)
 
 
 class TestSum:
-    @patch("solutions.CHK.sku_data.sku_data", test_sku_data)
+#    @patch("solutions.CHK.sku_data.sku_data", test_sku_data)
     def test_checkout_illegal_input(self):
         assert checkout_solution.checkout("A1") == -1
         assert checkout_solution.checkout("AB!") == -1
 
-    @patch("solutions.CHK.sku_data.sku_data", test_sku_data)
+#    @patch("solutions.CHK.sku_data.sku_data", test_sku_data)
     def test_checkout_empty(self):
         assert checkout_solution.checkout("") == 0
 
-    @patch("solutions.CHK.sku_data.sku_data", test_sku_data)
+#    @patch("solutions.CHK.sku_data.sku_data", test_sku_data)
     def test_checkout_one_item(self):
         assert checkout_solution.checkout("A") == 50
         assert checkout_solution.checkout("C") == 20
 
-    @patch("solutions.CHK.sku_data.sku_data", test_sku_data)
+#    @patch("solutions.CHK.sku_data.sku_data", test_sku_data)
     def test_checkout_multiple_items_no_offer(self):
         assert checkout_solution.checkout("AC") == 70
         assert checkout_solution.checkout("ABCD") == 115
 
-    @patch("solutions.CHK.sku_data.sku_data", test_sku_data)
+#    @patch("solutions.CHK.sku_data.sku_data", test_sku_data)
     def test_checkout_multiple_items_one_offer(self):
         assert checkout_solution.checkout("AA") == 100
 
-    @patch("solutions.CHK.sku_data.sku_data", test_sku_data)
+#    @patch("solutions.CHK.sku_data.sku_data", test_sku_data)
     def test_checkout_multiple_items_multiple_offer(self):
         assert checkout_solution.checkout("AAABBC") == 195
 
-    @patch("solutions.CHK.sku_data.sku_data", test_sku_data)
+#    @patch("solutions.CHK.sku_data.sku_data", test_sku_data)
     def test_checkout_multiple_items_repeat_offer(self):
         assert checkout_solution.checkout("BBBBD") == 105
 
-    @patch("solutions.CHK.sku_data.sku_data", test_sku_data)
+#    @patch("solutions.CHK.sku_data.sku_data", test_sku_data)
     def test_checkout_prioritises_best_offer(self):
         assert checkout_solution.checkout("AAAAAA") == 250
 
-    @patch("solutions.CHK.sku_data.sku_data", test_sku_data)
+#    @patch("solutions.CHK.sku_data.sku_data", test_sku_data)
     def test_checkout_different_offers_for_same_item(self):
         # 200(5) + 130(3) + 50(1)
         assert checkout_solution.checkout("AAAAAAAAA") == 380
 
-    @patch("solutions.CHK.sku_data.sku_data", test_sku_data)
+#    @patch("solutions.CHK.sku_data.sku_data", test_sku_data)
     def test_checkout_accounts_for_free_item_when_available(self):
         assert checkout_solution.checkout("BEE") == 80
 
-    @patch("solutions.CHK.sku_data.sku_data", test_sku_data)
+#    @patch("solutions.CHK.sku_data.sku_data", test_sku_data)
     def test_checkout_accounts_for_multiple_free_items_when_available(self):
         assert checkout_solution.checkout("BBEEEE") == 160
 
-    @patch("solutions.CHK.sku_data.sku_data", test_sku_data)
+#    @patch("solutions.CHK.sku_data.sku_data", test_sku_data)
     def test_checkout_ignores_free_item_when_not_in_basket(self):
         assert checkout_solution.checkout("AEE") == 130
         assert checkout_solution.checkout("ABEEEE") == 210
 
-    @patch("solutions.CHK.sku_data.sku_data", test_sku_data)
+#    @patch("solutions.CHK.sku_data.sku_data", test_sku_data)
     def test_checkout_buy_x_get_x_free_offer(self):
         assert checkout_solution.checkout("FF") == 20
         assert checkout_solution.checkout("FFF") == 20
         assert checkout_solution.checkout("FFFF") == 30
         assert checkout_solution.checkout("FFFFFF") == 40
 
-    @patch("solutions.CHK.sku_data.sku_data", test_sku_data)
+#    @patch("solutions.CHK.sku_data.sku_data", test_sku_data)
     def test_checkout_complex_order(self):
         # Z  + T  + 4Q + Q  + 10H + 5H + C  + 2F + 4U (1 free)
         # 50 + 20 + 80 + 30 + 80  + 45 + 20 + 20 + 120
         assert checkout_solution.checkout("ZTQQQQHHHHHHHHHHHHHHHCFFUUUU") == 465
-
-
-
-
