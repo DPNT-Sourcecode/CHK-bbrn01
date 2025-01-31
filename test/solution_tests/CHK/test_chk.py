@@ -44,5 +44,3 @@ class TestSum:
 
     def test_checkout_ignores_free_item_when_not_in_basket(self):
         assert checkout_solution.checkout("AEE") == 130
-
-

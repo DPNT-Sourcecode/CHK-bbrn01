@@ -26,7 +26,7 @@ def checkout(skus: str) -> int:
             continue
 
         # for items with offers, factor in the reduced price based on the number of offers
-        offer_req, offer_price = OFFERS[id]
+        offer_req, offer_price = OFFERS[id][0]  # TODO: pick best offer
         
         total += int(count / offer_req) * offer_price
         total += count % offer_req * unit_price
@@ -36,16 +36,12 @@ def checkout(skus: str) -> int:
 
 def _build_basket(skus: str) -> dict[str, int]:
     if not isinstance(skus, str):
-        return -1
+        raise InvalidBasket()
 
     basket = defaultdict(int)
     for id in skus:
         if id not in ITEMS:
-            return -1
+            raise InvalidBasket()
         basket[id] += 1
 
     return basket
-
-
-
-
