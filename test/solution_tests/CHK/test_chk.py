@@ -1,5 +1,6 @@
 from solutions.CHK import checkout_solution
 
+test_sku_data = SkuData()
 # +------+-------+------------------------+
 # | Item | Price | Special offers         |
 # +------+-------+------------------------+
