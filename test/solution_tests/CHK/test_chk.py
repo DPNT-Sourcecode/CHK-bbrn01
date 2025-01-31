@@ -89,7 +89,10 @@ class TestSum:
     def test_checkout_complex_order(self):
         # Z  + T  + 4Q + Q  + 10H + 5H + C  + 2F + 4U (1 free)
         # 21 + 20 + 80 + 30 + 80  + 45 + 20 + 20 + 120
-        assert checkout_solution.checkout("ZTQQQQHHHHHHHHHHHHHHHCFFUUUU") == 444
+        assert checkout_solution.checkout("ZTQQQQHHHHHHHHHHHHHHHCFFUUUU") == 436
 
-    
+    @patch("solutions.CHK.checkout_solution.sku_data", test_sku_data)
+    def test_checkout_multi_selection_offer(self):
+        assert checkout_solution.checkout("SXZ") == 45
+
 

@@ -17,7 +17,9 @@ class SkuData:
             self.item_prices[item] = int(price)
 
             for offer in offers.split(", "):
-                if " for " in offer and "any" not in offer:
+                if "buy any " in offer:
+                    
+                elif " for " in offer:
                     for_offer = offer.split(" for ")
                     item_id = for_offer[0][-1]
                     req_count = int(for_offer[0][:-1])
@@ -45,4 +47,5 @@ class SkuData:
 
 
 sku_data = SkuData(PRICE_TABLE)
+
 
