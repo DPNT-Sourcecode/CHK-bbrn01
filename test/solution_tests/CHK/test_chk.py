@@ -37,34 +37,42 @@ test_sku_data = SkuData(test_data)
 
 
 class TestSum:
-    @patch(".sku_data.sku_data")
-    def test_checkout_illegal_input(self, sku_data_mock):
+    @patch("solutions.CHK.sku_data.sku_data", test_sku_data)
+    def test_checkout_illegal_input(self):
         assert checkout_solution.checkout("A1") == -1
         assert checkout_solution.checkout("AB!") == -1
 
+    @patch("solutions.CHK.sku_data.sku_data")
     def test_checkout_empty(self):
         assert checkout_solution.checkout("") == 0
 
+    @patch("solutions.CHK.sku_data.sku_data")
     def test_checkout_one_item(self):
         assert checkout_solution.checkout("A") == 50
         assert checkout_solution.checkout("C") == 20
 
+    @patch("solutions.CHK.sku_data.sku_data")
     def test_checkout_multiple_items_no_offer(self):
         assert checkout_solution.checkout("AC") == 70
         assert checkout_solution.checkout("ABCD") == 115
 
+    @patch("solutions.CHK.sku_data.sku_data")
     def test_checkout_multiple_items_one_offer(self):
         assert checkout_solution.checkout("AA") == 100
 
+    @patch("solutions.CHK.sku_data.sku_data")
     def test_checkout_multiple_items_multiple_offer(self):
         assert checkout_solution.checkout("AAABBC") == 195
 
+    @patch("solutions.CHK.sku_data.sku_data")
     def test_checkout_multiple_items_repeat_offer(self):
         assert checkout_solution.checkout("BBBBD") == 105
 
+    @patch("solutions.CHK.sku_data.sku_data", test_sku_data)
     def test_checkout_prioritises_best_offer(self):
         assert checkout_solution.checkout("AAAAAA") == 250
 
+    @patch("solutions.CHK.sku_data.sku_data")
     def test_checkout_different_offers_for_same_item(self):
         # 200(5) + 130(3) + 50(1)
         assert checkout_solution.checkout("AAAAAAAAA") == 380
@@ -89,5 +97,6 @@ class TestSum:
         # Z  + T  + 4Q + Q  + 10H + 5H + C  + 2F + 4U (1 free)
         # 50 + 20 + 80 + 30 + 80  + 45 + 20 + 20 + 120
         assert checkout_solution.checkout("ZTQQQQHHHHHHHHHHHHHHHCFFUUUU") == 465
+
 
 
