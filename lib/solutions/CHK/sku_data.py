@@ -1,5 +1,7 @@
 from collections import defaultdict
 
+from lib.solutions.CHK.constants import PRICE_TABLE
+
 
 class SkuData:
     def __init__(self, price_table: str):
@@ -40,5 +42,8 @@ class SkuData:
                 self.offers[item_id] = sorted(
                     self.offers[item_id], key=lambda x: x[0], reverse=True
                 )
+
+
+sku_data = SkuData(PRICE_TABLE)
 
 
