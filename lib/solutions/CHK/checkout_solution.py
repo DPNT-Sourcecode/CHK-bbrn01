@@ -16,9 +16,18 @@ def checkout(skus: str) -> int:
     except InvalidBasket:
         return -1
 
+    # in a first-pass, remove items from the basket which are part of a freebie offer
+    for id, count in basket.items():
+        if id in FREEBIES:
+            required_count, free_id = FREEBIES[id]
+            basket[free_id] / 
+            while count >= required_count and basket_copy.get(free_id, 0) > 0:
+                total -= ITEMS[free_id]
+                basket[free_id] -= 1
+
+
     # calculate the basket value
     total = 0
-    basket_copy = basket.copy()
     for id, count in basket.items():
         # for items without offers, we can simply add the price muliplied by count
         unit_price = ITEMS[id]
@@ -33,10 +42,7 @@ def checkout(skus: str) -> int:
 
         # for items with freebies, remove their value from the total if present in the basket
         if id in FREEBIES:
-            required_count, free_id = FREEBIES[id]
-            while count >= required_count and basket_copy.get(free_id, 0) > 0:
-                total -= ITEMS[free_id]
-                basket_copy[free_id] -= 1
+
 
     return total
 
@@ -52,5 +58,6 @@ def _build_basket(skus: str) -> dict[str, int]:
         basket[id] += 1
 
     return basket
+
 
 
