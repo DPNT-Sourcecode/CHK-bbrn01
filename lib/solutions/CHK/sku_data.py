@@ -43,10 +43,10 @@ class SkuData:
         #     "E": 40,
         #     "F": 10,
         }
-        self.offers: dict[str, list[tuple]] = {
+        self.offers: dict[str, list[tuple]] = defaultdict(list)
             # "A": [(3, 130), (5, 200)],
             # "B": [(2, 45)],
-        }
+        # }
         self.freebies: dict[str, tuple] = defaultdict(list)
             # "E": (2, "B"),
             # "F": (3, "F"),
@@ -59,13 +59,18 @@ class SkuData:
             offers = l[3].strip()
             self.item_prices[item] = int(price)
 
+# 3Q for 80              |
+# 3R get one Q free      |
             for offer in offers.split(", "):
                 if " for " in offer:
                     for_offer = offer.split(" for ")
-                    self.offers[]
+                    
+                    self.offers[for_offer[0][-1]] = (int(for_offer[[0][:-1]]), int(for_offer[1]))
 
+            breakpoint()
 
 sku_data = SkuData(PRICE_TABLE)
+
 
 
 
