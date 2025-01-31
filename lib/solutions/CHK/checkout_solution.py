@@ -5,10 +5,14 @@ ITEMS = {
     "B": 30,
     "C": 20,
     "D": 15,
+    "E": 40,
 }
 OFFERS = {
-    "A": (3, 130),
+    "A": [(3, 130), (5, 200)],
     "B": (2, 45),
+}
+FREEBIES = {
+    "E": [2],
 }
 
 
@@ -40,4 +44,5 @@ def checkout(skus: str) -> int:
         total += count % offer_req * unit_price
 
     return total
+
 
