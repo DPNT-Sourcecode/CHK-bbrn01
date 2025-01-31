@@ -22,17 +22,8 @@ def checkout(skus: str) -> int:
     total = 0
     # a pre-pass to remove items which are part of a multi-deal offer
     for offer in sku_data.multi_offers:
-        # assumption: items in multi-offers can not be part of any other offer type
-        valid_items = offer[0]
-        req_count = offer[1]
-        price = offer[2]
-
-        prices = []
-        for item_id in valid_items:
-            for j in range(0, basket[item_id]):
-                prices.append(sku_data.item_prices[item_id])
-        totals = sum([])
-
+        basket, value = _apply_multi_offers(basket, offer)
+        total += value
 
     # calculate the basket value
     for id, count in basket.items():
@@ -63,6 +54,23 @@ def _remove_freebies_from_basket(basket: dict[str, int]) -> dict[str, int]:
     return basket
 
 
+def _apply_multi_offers(
+    basket: dict[str, int], multi_offer: tuple[str, int, int]
+) -> tuple[dict[str, int], int]:
+    # assumption: items in multi-offers can not be part of any other offer type
+    valid_items = multi_offer[0]
+    req_count = multi_offer[1]
+    price = multi_offer[2]
+
+    prices = []
+    for item_id in valid_items:
+        for j in range(0, basket[item_id]):
+            prices.append(sku_data.item_prices[item_id])
+    prices = sum([])
+
+    return basket, ?
+
+
 def _calculate_item_basket_price(id: str, count: int) -> int:
     # for items without offers, we can simply add the price muliplied by count
     unit_price = sku_data.item_prices[id]
@@ -80,5 +88,6 @@ def _calculate_item_basket_price(id: str, count: int) -> int:
             offer_total += offer_price
 
     return offer_total + unit_price * remaining_count
+
 
 
