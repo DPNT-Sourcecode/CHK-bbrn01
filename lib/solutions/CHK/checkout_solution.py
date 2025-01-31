@@ -74,7 +74,7 @@ def _apply_multi_offers(
     # the remaining (cheapest) items must be charged at their base rate.
     offers = int(len(prices) / req_count)
     remainders = len(prices) % req_count
-    total = offers * offer_price + remainders
+    total = offers * offer_price + sum(prices[:remainders])
     return basket, total
 
 
@@ -95,4 +95,5 @@ def _calculate_item_basket_price(id: str, count: int) -> int:
             offer_total += offer_price
 
     return offer_total + unit_price * remaining_count
+
 
