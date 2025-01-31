@@ -8,6 +8,7 @@ from solutions.CHK import checkout_solution
 # | C    | 20    |                        |
 # | D    | 15    |                        |
 # | E    | 40    | 2E get one B free      |
+# | F    | 10    | 2F get one F free      |
 # +------+-------+------------------------+
 
 
@@ -54,5 +55,7 @@ class TestSum:
         assert checkout_solution.checkout("ABEEEE") == 210
 
     def test_checkout_buy_x_get_x_free_offer(self):
-        assert(checkout_solution)
+        assert checkout_solution.checkout("FF") == 20
+        assert checkout_solution.checkout("FFF") == 20
+        assert checkout_solution.checkout("FFFF") == 30
 

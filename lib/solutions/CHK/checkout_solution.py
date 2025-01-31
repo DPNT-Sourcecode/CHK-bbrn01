@@ -57,7 +57,7 @@ def _calculate_item_basket_price(id: str, count: int) -> int:
     ordered_offers: list[tuple[int, int]] = sorted(
         OFFERS[id], key=lambda x: x[0], reverse=True
     )
-    print(ordered_offers)
+
     for req_count, offer_price in ordered_offers:
         while remaining_count >= req_count:
             remaining_count -= req_count
