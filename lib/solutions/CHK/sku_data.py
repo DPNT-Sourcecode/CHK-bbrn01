@@ -61,6 +61,8 @@ class SkuData:
                     get_one_offer = offer.split(" get one ")
                     req_count = int(get_one_offer[0][:-1])
                     free_id = get_one_offer[1][0]
+                    # for freebie offers of the same item we require an additional item in the
+                    # basket. e.g. buy 2x get x free, with only 2 items there is no item left to be free.
                     if item == free_id:
                         req_count += 1
                     self.freebies[item] = (req_count, free_id)
@@ -69,7 +71,6 @@ class SkuData:
                 self.offers[item_id] = sorted(
                     self.offers[item_id], key=lambda x: x[0], reverse=True
                 )
-        breakpoint()
 
 
 sku_data = SkuData(PRICE_TABLE)
