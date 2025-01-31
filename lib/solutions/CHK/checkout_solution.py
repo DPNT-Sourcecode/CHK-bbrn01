@@ -60,15 +60,12 @@ def _calculate_item_basket_price(id: str, count: int) -> int:
     # assumption is made that offers with more items are always better value
     offer_total = 0
     remaining_count = count
-    breakpoint()
-    ordered_offers: list[tuple[int, int]] = sorted(
-        sku_data.offers[id], key=lambda x: x[0], reverse=True
-    )
 
-    for req_count, offer_price in ordered_offers:
+    for req_count, offer_price in sku_data.offers:
         while remaining_count >= req_count:
             remaining_count -= req_count
             offer_total += offer_price
 
     return offer_total + unit_price * remaining_count
+
 
