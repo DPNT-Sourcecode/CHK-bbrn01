@@ -26,17 +26,7 @@ def checkout(skus: str) -> int:
     # calculate the basket value
     total = 0
     for id, count in basket.items():
-        _calculate_item_basket_price
-        # for items without offers, we can simply add the price muliplied by count
-        unit_price = ITEMS[id]
-        if id not in OFFERS:
-            total += unit_price * count
-        else:
-            # for items with offers, factor in the reduced price based on the b
-            offer_req, offer_price = OFFERS[id][0]  # TODO: assume best offer
-
-            total += int(count / offer_req) * offer_price
-            total += count % offer_req * unit_price
+        total += _calculate_item_basket_price(id, count)
 
     return total
 
@@ -52,6 +42,22 @@ def _build_basket(skus: str) -> dict[str, int]:
         basket[id] += 1
 
     return basket
+
+
+def _calculate_item_basket_price(id: str, count: int) -> int:
+    # for items without offers, we can simply add the price muliplied by count
+    unit_price = ITEMS[id]
+    if id not in OFFERS:
+        return unit_price * count
+
+    # for items with offers, factor in the reduced price based on the best combination of offers
+    
+    offer_req, offer_price = OFFERS[id][0]  # TODO: assume best offer
+
+    offers_value = int(count / offer_req) * offer_price
+    solos_value = count % offer_req * unit_price
+    return offers_value + solos_value
+
 
 
 
