@@ -33,7 +33,10 @@ def checkout(skus: str) -> int:
 
         # for items with freebies, remove their value from the total if present in the basket
         if id in FREEBIES:
-            
+            required_count, free_id = FREEBIES[id]
+            while count >= required_count and basket_copy.get(free_id, 0) > 0:
+                total -= ITEMS[free_id]
+                basket_copy[free_id] -= 1
 
     return total
 
@@ -49,4 +52,5 @@ def _build_basket(skus: str) -> dict[str, int]:
         basket[id] += 1
 
     return basket
+
 
