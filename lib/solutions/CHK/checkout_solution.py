@@ -18,6 +18,7 @@ def checkout(skus: str) -> int:
 
     # in a first-pass, remove items from the basket which are part of a freebie offer
     for id, count in basket.items():
+        print(id)
         if id in FREEBIES and FREEBIES[id][1] in basket:
             required_count, free_id = FREEBIES[id]
             x = int(basket[free_id] / required_count)
@@ -65,4 +66,5 @@ def _calculate_item_basket_price(id: str, count: int) -> int:
             offer_total += offer_price
 
     return offer_total + unit_price * remaining_count
+
 
