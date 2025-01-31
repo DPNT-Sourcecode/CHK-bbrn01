@@ -50,10 +50,14 @@ class SkuData:
         }
 
         for line in price_table.splitlines()[3:-1]:
-            item, price, offers = line.split("|")
-            
+            l = line.split("|")
+            item = l[1].strip()
+            price = l[2].strip()
+            offers = l[3].strip()
+            self.item_prices[item] = int(price)
 
 
 sku_data = SkuData(PRICE_TABLE)
+
 
 
