@@ -54,6 +54,3 @@ class SkuData:
 
 
 sku_data = SkuData(PRICE_TABLE)
-
-
-

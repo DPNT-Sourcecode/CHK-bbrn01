@@ -68,11 +68,14 @@ def _apply_multi_offers(
             prices.append(sku_data.item_prices[item_id])
     prices.sort()
 
-    # We remove the highest priced items first, in batches of 'req_count', each batch charged at
-    # the offer_price. Remaining items must be charged at their base rate
+    # We prioritise the highest priced items to include in the offers. 
+    # The remaining (cheapest) items must be charged at their base rate.
     offers = int(len(prices) / req_count)
-    remainders = len(prices) / 
-    return basket, ?
+    remainders = len(prices) % req_count
+    total = offers * offer_price + remainders
+    
+    # update the basket to remove the items accounted for in the multi-deal
+    return basket, total
 
 
 def _calculate_item_basket_price(id: str, count: int) -> int:
@@ -92,7 +95,3 @@ def _calculate_item_basket_price(id: str, count: int) -> int:
             offer_total += offer_price
 
     return offer_total + unit_price * remaining_count
-
-
-
-
