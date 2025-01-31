@@ -1,3 +1,6 @@
+from collections import defaultdict
+
+
 PRICE_TABLE = """+------+-------+------------------------+
 | Item | Price | Special offers         |
 +------+-------+------------------------+
@@ -44,10 +47,10 @@ class SkuData:
             # "A": [(3, 130), (5, 200)],
             # "B": [(2, 45)],
         }
-        self.freebies: dict[str, tuple] = {
+        self.freebies: dict[str, tuple] = defaultdict(list)
             # "E": (2, "B"),
             # "F": (3, "F"),
-        }
+        # }
 
         for line in price_table.splitlines()[3:-1]:
             l = line.split("|")
@@ -56,8 +59,14 @@ class SkuData:
             offers = l[3].strip()
             self.item_prices[item] = int(price)
 
+            for offer in offers.split(", "):
+                if " for " in offer:
+                    for_offer = offer.split(" for ")
+                    self.offers[]
+
 
 sku_data = SkuData(PRICE_TABLE)
+
 
 
 
