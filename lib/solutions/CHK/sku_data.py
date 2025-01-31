@@ -8,7 +8,7 @@ class SkuData:
         self.item_prices: dict[str, int] = {}
         self.offers: dict[str, list[tuple]] = defaultdict(list)
         self.freebies: dict[str, tuple] = defaultdict(list)
-        self.multi_offers: set[tuple[set[str], int, int]] = set()
+        self.multi_offers: set[tuple[str, int, int]] = set()
 
         for line in price_table.splitlines()[3:-1]:
             l = line.split("|")
@@ -22,7 +22,7 @@ class SkuData:
                     # example: buy any 3 of (S,T,X,Y,Z) for 45
                     parts = offer.split(" ")
                     req_count = int(parts[2])
-                    item_ids = set(parts[4][1:-1].split(","))
+                    item_ids = "".join(parts[4][1:-1].split(","))
                     offer_price = int(parts[6])
                     self.multi_offers.add((item_ids, req_count, offer_price,))
 
@@ -55,5 +55,6 @@ class SkuData:
 
 sku_data = SkuData(PRICE_TABLE)
 breakpoint()
+
 
 
