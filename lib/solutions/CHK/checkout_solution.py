@@ -22,10 +22,16 @@ def checkout(skus: str) -> int:
     total = 0
     # a pre-pass to remove items which are part of a multi-deal offer
     for offer in sku_data.multi_offers:
-        # assumption: 
+        # assumption: items in multi-offers can not be part of any other offer type
         valid_items = offer[0]
         req_count = offer[1]
         price = offer[2]
+
+        totals = []
+        for id in valid_items:
+            for j in range(0, basket[i])
+            totals.extend([])
+        totals = sum([])
 
 
     # calculate the basket value
@@ -74,4 +80,5 @@ def _calculate_item_basket_price(id: str, count: int) -> int:
             offer_total += offer_price
 
     return offer_total + unit_price * remaining_count
+
 
