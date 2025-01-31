@@ -33,24 +33,25 @@ PRICE_TABLE = """+------+-------+------------------------+
 class SkuData:
     def __init__(self, price_table: str):
         self.item_prices: dict[str, int] = {
-            "A": 50,
-            "B": 30,
-            "C": 20,
-            "D": 15,
-            "E": 40,
-            "F": 10,
+        #     "A": 50,
+        #     "B": 30,
+        #     "C": 20,
+        #     "D": 15,
+        #     "E": 40,
+        #     "F": 10,
         }
         self.offers: dict[str, list[tuple]] = {
-            "A": [(3, 130), (5, 200)],
-            "B": [(2, 45)],
+            # "A": [(3, 130), (5, 200)],
+            # "B": [(2, 45)],
         }
         self.freebies: dict[str, tuple] = {
-            "E": (2, "B"),
-            "F": (3, "F"),
+            # "E": (2, "B"),
+            # "F": (3, "F"),
         }
 
-        for line in price_table.splitlines():
-            pass
+        for line in price_table.splitlines()[3:-1]:
+            item, price, offers = line.split("|")
+            
 
 
 sku_data = SkuData(PRICE_TABLE)
