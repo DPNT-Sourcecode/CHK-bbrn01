@@ -17,7 +17,7 @@ class TestSum:
 
     def test_checkout_one_item(self):
         assert checkout_solution.checkout("A") == 50
-        assert checkout_solution.checkout("C") == 15
+        assert checkout_solution.checkout("C") == 20
 
     def test_checkout_multiple_items_no_offer(self):
         assert checkout_solution.checkout("AC") == 70
@@ -35,5 +35,3 @@ class TestSum:
     def test_checkout_illegal_input(self):
         assert checkout_solution.checkout("A1") == -1
         assert checkout_solution.checkout("ABF") == -1
-
-

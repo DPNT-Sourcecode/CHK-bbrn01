@@ -27,8 +27,12 @@ def checkout(skus: str) -> int:
     # calculate the basket value
     total = 0
     for id, count in basket.items():
-        total += ITEMS[id] * 
+        if id not in OFFERS:
+            total += ITEMS[id] * count
+            continue
+        
+        multiplier, price = OFFERS[id]
+        total += int(count / multiplier) * 
+        total += count % multiplier
 
-
-
-
+    return total
